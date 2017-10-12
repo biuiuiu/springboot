@@ -2,7 +2,7 @@ package com.zzyyaa.test.entity;
 
 import java.util.Date;
 
-public class User {
+public class User{
 	private long id;
 	private String userName;
 	private int userAge;

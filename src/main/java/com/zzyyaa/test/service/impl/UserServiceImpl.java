@@ -5,12 +5,13 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.zzyyaa.test.dao.BaseDao;
 import com.zzyyaa.test.dao.UserDao;
 import com.zzyyaa.test.entity.User;
 import com.zzyyaa.test.service.UserService;
 
 @Service
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl extends BaseServiceImpl<User, Long> implements UserService{
 	
 	@Autowired
 	private UserDao dao;
@@ -18,7 +19,10 @@ public class UserServiceImpl implements UserService{
 	public List<User> getAllUser(){
 		return dao.getAllUser();
 	}
-	/*public User getAllUser(){
-		return dao.getAllUser();
-	}*/
+
+	@Override
+	public BaseDao<User, Long> getDao() {
+		// TODO Auto-generated method stub
+		return dao;
+	}
 }

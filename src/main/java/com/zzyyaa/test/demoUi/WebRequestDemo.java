@@ -6,15 +6,18 @@ import java.util.List;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.EnableLoadTimeWeaving;
 import org.springframework.stereotype.Controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.zzyyaa.test.Utils.BeanUtils;
 import com.zzyyaa.test.Utils.CommonUtils;
 import com.zzyyaa.test.entity.User;
 import com.zzyyaa.test.service.UserService;
@@ -61,7 +64,26 @@ public class WebRequestDemo {
 	@Path(value = "/list")
 	@ApiOperation(value = "测试获取数据库信息")
 	public String getAllUser() {
-		List<User> list = service.getAllUser();
+		UserService aservice = BeanUtils.getBean(UserService.class);
+		List<User> list = aservice.getAllUser();
 		return JSONObject.toJSONString(list);
+	}
+	
+	@GET
+	@Path(value = "/getById/{id}")
+	public User getById(@PathParam("id") long id){
+		return service.getAll(id);
+	}
+	
+	@POST
+	@Path(value = "/add")
+	public User addUser(User user){
+		if (user.getCreateDate() == null) 
+			user.setCreateDate(new Date());
+		if (user.getUpdateDate() == null) {
+			user.setUpdateDate(new  Date());
+		}
+		User user2 =  service.addT(user);
+		return user2;
 	}
 }

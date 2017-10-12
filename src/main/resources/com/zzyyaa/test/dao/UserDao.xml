@@ -9,13 +9,28 @@
         <result property="userName" column="USER_NAME" />
         <result property="userAge" column="USER_AGE" />
         <result property="userSex" column="USER_SEX" />
-        <result property="createDate" column="CREATE_DATE" jdbcType = "DATE"></result>
+        <result property="createDate" column="CREATE_DATE" jdbcType = "TIMESTAMP"></result>
         <result property="updateDate" column="UPDATE_DATE" jdbcType = "TIMESTAMP"/>
     </resultMap>
     
 	<select id="getAllUser" resultMap = "userMap"> 
 		SELECT *  FROM demo_user_info 
 	</select>
+	
+	<select id="getAll" resultMap = "userMap"> 
+		SELECT *  FROM demo_user_info  where id = #{id}
+	</select>
+	
+
+	<insert id="addT" parameterType="com.zzyyaa.test.entity.User" useGeneratedKeys="true" keyColumn="ID" keyProperty="id">
+		INSERT INTO demo_user_info (
+			USER_NAME,USER_AGE,USER_SEX,CREATE_DATE,UPDATE_DATE
+			  ) VALUES (
+			#{userName,jdbcType=VARCHAR},#{userAge,jdbcType=INTEGER},
+			#{userSex,jdbcType=BIT},
+			#{createDate,jdbcType = TIMESTAMP},#{updateDate,jdbcType = TIMESTAMP}
+			)
+	</insert>
 	
 </mapper>
 
