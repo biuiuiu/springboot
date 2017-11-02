@@ -2,13 +2,28 @@ package com.zzyyaa.test.entity;
 
 import java.util.Date;
 
-public class User{
+import com.alibaba.fastjson.annotation.JSONField;
+import com.zzyyaa.test.customAnnotaion.MyFirstAnnotaion;
+
+public class User {
 	private long id;
 	private String userName;
 	private int userAge;
 	private boolean userSex;
+	@JSONField(format = "yy-MM-dd")
 	private Date createDate;
 	private Date updateDate;
+	@MyFirstAnnotaion(type = "STATE")
+	private String state;
+
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
+	}
+
 
 	public long getId() {
 		return id;
@@ -34,7 +49,7 @@ public class User{
 		this.userAge = userAge;
 	}
 
-	public boolean isUserSex() {
+	public boolean getUserSex() {
 		return userSex;
 	}
 

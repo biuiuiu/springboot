@@ -19,7 +19,12 @@ public class UserServiceImpl extends BaseServiceImpl<User, Long> implements User
 	public List<User> getAllUser(){
 		return dao.getAllUser();
 	}
-
+	
+	public String printState(long id) {
+		System.out.println("ebfor"+ id);
+		return String.valueOf(id);
+	}
+	
 	@Override
 	public BaseDao<User, Long> getDao() {
 		// TODO Auto-generated method stub

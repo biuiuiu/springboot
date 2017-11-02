@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?><project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>com.zzyyaa</groupId>
-  <artifactId>test</artifactId>
+  <groupId>com.zzyyaa</groupId><!-- 项目的标识 -->
+  <artifactId>test</artifactId><!-- 项目的通用名称 -->
   <version>0.0.1-TEST</version>
-  <packaging>jar</packaging>
+  <packaging>jar</packaging><!-- 项目打包的包文件类型 -->
   
 	<parent>
 	    <groupId>org.springframework.boot</groupId>
 	    <artifactId>spring-boot-starter-parent</artifactId>
 	    <version>1.5.2.RELEASE</version>
-	</parent>
+	</parent><!-- 继承 -->
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -17,22 +17,22 @@
 		<java.version>1.8</java.version>
 	</properties>
   
-  <dependencies>
+  <dependencies><!-- 引用 -->
   	<dependency>
   		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter</artifactId>
-		<exclusions>
-        <exclusion> 
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-logging</artifactId>
-        </exclusion>
-   		</exclusions>
+		<artifactId>spring-boot-starter</artifactId><!-- 引用文件的唯一标识 -->
+		<!-- <exclusions>引用XXXXjar包，但排除一下jar包
+	        <exclusion> 
+	            <groupId>org.springframework.boot</groupId>
+	            <artifactId>spring-boot-starter-logging</artifactId>
+	        </exclusion>
+   		</exclusions> -->
   	</dependency>
-  	<dependency>
+<!--   	<dependency>
 	    <groupId>org.springframework.boot</groupId>
 	    <artifactId>spring-boot-starter-log4j</artifactId>
 	    <version>1.2.6.RELEASE</version>
-	</dependency>
+	</dependency> -->
   <!-- 	<dependency>
 		<groupId>org.jboss.resteasy</groupId>
 		<artifactId>resteasy-jaxrs</artifactId>
@@ -48,12 +48,12 @@
         <artifactId>resteasy-spring</artifactId>
         <version>2.3.5.Final</version>
     </dependency>	 -->
-    <!-- 支持resteasy风格 -->
+    
     <dependency>
 		<groupId>com.paypal.springboot</groupId>
 		<artifactId>resteasy-spring-boot-starter</artifactId>
 		<version>2.3.0-RELEASE</version>
-	</dependency>
+	</dependency><!-- 引用resteasy风格 -->
 	
 	<!-- 引用web服务 -->
 	<dependency>
@@ -78,28 +78,49 @@
 		<version>4.0</version>
 	</dependency>
 	
+	
+	<dependency>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-aop</artifactId>
+		<version>1.5.8.RELEASE</version>
+	</dependency>
 	<dependency>
 		<groupId>com.alibaba</groupId>
 		<artifactId>fastjson</artifactId>
-		<version>1.1.22</version>
+		<version>1.2.31</version>
+	</dependency>
+	
+	
+	<dependency>
+		<groupId>com.k4hub</groupId>
+		<artifactId>swagger2-spring-boot-starter</artifactId>
+		<version>1.0-RELEASE</version>
+	</dependency>
+	
+	<dependency>
+		<groupId>org.javassist</groupId>
+		<artifactId>javassist</artifactId>
+		<version>3.20.0-GA</version>
 	</dependency>
 	
 	<!-- swagger引用 -->
-	<dependency>
+<!-- 	<dependency>
 	    <groupId>io.springfox</groupId>
 	    <artifactId>springfox-swagger2</artifactId>
-	    <version>2.2.2</version>
+	    <version>2.6.1</version>
 	</dependency>
 	<dependency>
 	    <groupId>io.springfox</groupId>
 	    <artifactId>springfox-swagger-ui</artifactId>
-	    <version>2.2.2</version>
-	</dependency>
+	    <version>2.6.1</version>
+	</dependency> -->
+	
+	
 	
   </dependencies>
   
-	<build>
-		<plugins>
+	<build><!-- 编译设置 -->
+		<plugins><!-- 引用编译需要的插件 -->
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
