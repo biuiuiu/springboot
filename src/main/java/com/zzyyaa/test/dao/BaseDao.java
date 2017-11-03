@@ -2,7 +2,7 @@ package com.zzyyaa.test.dao;
 
 import java.io.Serializable;
 
-public interface BaseDao<T ,PK extends Serializable>{
+public interface BaseDao<T ,PK>{
 	
 	public T getAll(PK pk);
 	

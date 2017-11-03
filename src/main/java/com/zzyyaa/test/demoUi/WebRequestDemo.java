@@ -22,6 +22,8 @@ import com.zzyyaa.test.Utils.BeanUtils;
 import com.zzyyaa.test.Utils.CommonUtils;
 import com.zzyyaa.test.Utils.DateAroundAspect;
 import com.zzyyaa.test.Utils.DynamicProxy;
+import com.zzyyaa.test.dao.BaseDao;
+import com.zzyyaa.test.dao.UserDao;
 import com.zzyyaa.test.entity.User;
 import com.zzyyaa.test.service.UserService;
 import com.zzyyaa.test.service.impl.UserServiceImpl;
@@ -93,12 +95,12 @@ public class WebRequestDemo {
 	 * */
 	@GET
 	@Path(value = "/testAspect/{id}")
-	public String testAspect(@PathParam("id") long id){
+	public User testAspect(@PathParam("id") long id){
 		ProxyFactory proxyFactory = new ProxyFactory();//创建代理工厂
-		proxyFactory.setTarget(new UserServiceImpl());//添加目标类对象
+		proxyFactory.setTarget(service);//添加目标类对象，調用哪个对象的方法即添加哪个对象
 		proxyFactory.addAdvice(new DateAroundAspect());//添加环绕增强类
 		UserService userService = (UserService)proxyFactory.getProxy();//从代理工厂中获取代理
-		String ss = userService.printState(id);//调用代理的方法
+		User ss = userService.printState(id);//调用代理的方法
 		return ss;
 	}
 	

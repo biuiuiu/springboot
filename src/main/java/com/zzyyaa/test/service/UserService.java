@@ -7,6 +7,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.zzyyaa.test.entity.User;
 @Transactional
 public interface UserService extends BaseService<User, Long>{
-	public String printState(long id) ;
+	public User printState(long id) ;
 	public List<User> getAllUser();
 }

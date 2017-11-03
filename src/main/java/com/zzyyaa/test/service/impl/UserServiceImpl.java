@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.zzyyaa.test.dao.BaseDao;
 import com.zzyyaa.test.dao.UserDao;
 import com.zzyyaa.test.entity.User;
 import com.zzyyaa.test.service.UserService;
@@ -20,13 +19,13 @@ public class UserServiceImpl extends BaseServiceImpl<User, Long> implements User
 		return dao.getAllUser();
 	}
 	
-	public String printState(long id) {
+	public User printState(long id) {
 		System.out.println("ebfor"+ id);
-		return String.valueOf(id);
+		return dao.getAll(id);
 	}
 	
 	@Override
-	public BaseDao<User, Long> getDao() {
+	public UserDao getDao() {
 		// TODO Auto-generated method stub
 		return dao;
 	}

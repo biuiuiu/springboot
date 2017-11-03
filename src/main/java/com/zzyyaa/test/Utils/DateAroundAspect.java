@@ -14,7 +14,7 @@ public class DateAroundAspect implements MethodInterceptor{
 		Date beginDate = new Date();
 		Object result = invocation.proceed();
 		Date endDate = new Date();
-		System.out.println(beginDate.getTime() - endDate.getTime());
+		System.out.println(endDate.getTime() - beginDate.getTime());
 		System.out.println("after");
 		return result;
 	}
