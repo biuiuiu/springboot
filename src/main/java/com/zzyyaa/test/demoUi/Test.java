@@ -28,6 +28,7 @@ public class Test {
 	public String returnNum(@PathParam("num") String num) throws Exception{
 		ExecutorService executorService = Executors.newFixedThreadPool(2);
 		Future<String> future = executorService.submit(new TheardTest());
+		executorService.shutdown();
 		System.out.println(future.get());
 		num = future.get();
 		return num;

@@ -22,7 +22,10 @@ import com.zzyyaa.test.entity.User;
 import javassist.ClassPool;
 import javassist.CtClass;
 import javassist.CtField;
+import javassist.CtMethod;
+import javassist.CtNewMethod;
 import javassist.Modifier;
+import net.bytebuddy.asm.Advice.This;
 
 @Component
 public class AnnotationTest {
@@ -54,13 +57,13 @@ public class AnnotationTest {
 			if (!flag)
 				addSet.add(string);
 		}
-		User user = new User();
-		System.out.println(user);
 		Class<?> class2 = addField(class1.getName(), addSet);
  		for (T t : list) {
 			Object t2 = class2.newInstance();
 			for (Field field : fields) {
 				String temp = field.getName();
+				if (temp!=null&&temp.contains("Desp"))
+					continue;
 				Method getMethod = class1.getMethod("get"+temp.substring(0,1).toUpperCase()+temp.substring(1),new Class[]{});
 				Object value = getValueByObj(t,getMethod);
 				if (field.isAnnotationPresent(MyFirstAnnotaion.class)) {
@@ -76,9 +79,8 @@ public class AnnotationTest {
 						}
 					}
 					setFieldValue(t2, despField, vString);
-				}else {
-					setFieldValue(t2, temp, value);
 				}
+				setFieldValue(t2, temp, value);
 			}
 			finalList.add((T)t2);
 		}
@@ -141,27 +143,42 @@ public class AnnotationTest {
 	 * @
 	 * */
 	private static Class<?> addField(String className,Set<String> set) throws Exception{
-		ClassPool pool = ClassPool.getDefault();//获取Javaassist类池
-		CtClass ctClass = pool.get(className);
-		ctClass.defrost();//字节文件“解冻”，即可多次修改，不然执行toclass方法之后不可更改
-		// 为创建的类ctClass添加属性
-		Iterator<String> it = set.iterator();
-		Class<?> class1 = Class.forName(className);
-		while(it.hasNext()){
-			String fieldName = it.next();
-			String filedType = fieldName.getClass().getName();//设置字段的类型，此为string
-			CtField ctField = new CtField(pool.get(filedType), fieldName,ctClass);
-			ctField.setModifiers(Modifier.PRIVATE);
-			CtField[] ctFields = ctClass.getDeclaredFields();
-			boolean b = false;
-			for (CtField item : ctFields) {
-				if (item.getName().contains(fieldName))
-					b = true;
+		
+		if (className == null ) 
+			return null;
+		Class<?> class1 = null;
+		if (set.size() == 0) {
+			class1 = Class.forName(className);
+		}else {
+			ClassPool pool = ClassPool.getDefault();//获取Javaassist类池
+			CtClass ctClass = pool.get(className);
+			// 为创建的类ctClass添加属性
+			Iterator<String> it = set.iterator();
+			while(it.hasNext()){
+				String fieldName = it.next();
+				String temp = fieldName.substring(0,1).toUpperCase().concat(fieldName.substring(1));
+				String filedType = fieldName.getClass().getName();//设置字段的类型，此为string
+				CtField ctField = new CtField(pool.get(filedType), fieldName,ctClass);
+				ctField.setModifiers(Modifier.PRIVATE);
+				CtField[] ctFields = ctClass.getDeclaredFields();
+				boolean b = false;
+				for (CtField item : ctFields) {
+					if (item.getName().contains(fieldName))
+						b = true;
+				}
+				if (!b){
+					 ctClass.addField(ctField);
+					 CtMethod getctme = CtNewMethod.make("public String get"+temp+"(){return this."+fieldName+";}",ctClass);
+					 CtMethod setctme = CtNewMethod.make("public void set"+temp+"(String "+fieldName+"){this."+fieldName+"="+fieldName+";}",ctClass);
+					 ctClass.addMethod(getctme);
+					 ctClass.addMethod(setctme);
+				}
 			}
-			if (!b){
-				 ctClass.addField(ctField);
-				 class1 = ctClass.toClass();
-			}
+			ctClass.writeFile(AnnotationTest.class.getClassLoader().getResource("").getPath());
+			System.out.println(AnnotationTest.class.getClassLoader().getResource("").getPath());
+			class1 = ctClass.toClass();
+			ctClass.defrost();//字节文件“解冻”，即可多次修改，不然执行toclass方法之后不可更改
+//			ctClass.detach();//吧当前ctclass从javaassis类池中移出
 		}
 		return class1;
 	}

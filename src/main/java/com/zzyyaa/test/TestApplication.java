@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.web.HttpMessageConverters;
+import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.http.MediaType;
@@ -17,6 +18,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.alibaba.fastjson.support.config.FastJsonConfig;
 import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
+import com.zzyyaa.test.Utils.dispatcherServlet;
 import com.zzyyaa.test.customAnnotaion.MyFirstAnnotationAspect;
 
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
@@ -24,13 +26,20 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @SpringBootApplication
 @EnableWebMvc
 @EnableSwagger2
-@EnableScheduling
+@EnableScheduling//注解开启spring定时任务
 public class TestApplication extends WebMvcConfigurerAdapter{
 	
 	public static void main(String[] args) {
 		SpringApplication.run(TestApplication.class, args);
 }
-	
+
+	/**
+	 * 代码添加对应的servlet
+	 * */
+    @Bean
+    public ServletRegistrationBean servletRegistrationBean() {
+        return new ServletRegistrationBean(new dispatcherServlet(), "/ownservlet/*");// ServletName默认值为首字母小写，即myServlet
+    }
 	@Bean
 	public HttpMessageConverters fastJsonHttpMessageConverters(){
 	    //1.需要定义一个convert转换消息的对象;

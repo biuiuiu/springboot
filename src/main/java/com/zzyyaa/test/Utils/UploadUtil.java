@@ -24,20 +24,25 @@ public class UploadUtil {
 	 * 文件上传，把请求request转换为两部分，文件和参数
 	 */
 	public static FileUploadEntity transFileEntity(HttpServletRequest request) {
+		if (request == null){
+			logger.debug("no request param");
+			return null;
+		}
 		DiskFileItemFactory factory = new DiskFileItemFactory();
 		ServletFileUpload upload = new ServletFileUpload(factory);
 		FileUploadEntity fileUploadEntity = new FileUploadEntity();
 		List<FileItem> fileItems = new LinkedList<>();
 		MultiValueMap<String, String> valueMap = new LinkedMultiValueMap<>();
-		if (!ServletFileUpload.isMultipartContent(request))
+		if (!ServletFileUpload.isMultipartContent(request))//判断请求是否包含文件
 			return fileUploadEntity;
 		try {
 			Map<String, List<FileItem>> map = upload.parseParameterMap(request);
 			for (Map.Entry<String, List<FileItem>> item : map.entrySet()) {
-				List<String> paramList = new LinkedList<>();
 				for (FileItem fileItem : item.getValue()) {
-					if (fileItem.isFormField()) {
-						paramList.add(fileItem.getString());
+					if (fileItem.isFormField()) {//判断参数是否是表单参数
+						String temp = fileItem.getString();
+						String[] tempArr = temp.split(",");
+						List<String> paramList = CommonUtils.transArray2List(tempArr);
 						valueMap.put(item.getKey(), paramList);
 					} else {
 						fileItems.add(fileItem);

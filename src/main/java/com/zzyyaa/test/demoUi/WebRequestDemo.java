@@ -22,6 +22,7 @@ import com.zzyyaa.test.Utils.BeanUtils;
 import com.zzyyaa.test.Utils.CommonUtils;
 import com.zzyyaa.test.Utils.DateAroundAspect;
 import com.zzyyaa.test.Utils.DynamicProxy;
+import com.zzyyaa.test.customAnnotaion.MyFirstAnnotaion;
 import com.zzyyaa.test.dao.BaseDao;
 import com.zzyyaa.test.dao.UserDao;
 import com.zzyyaa.test.entity.User;
@@ -70,6 +71,10 @@ public class WebRequestDemo {
 		return "hello".concat(name).concat("!");
 	}
 	
+	/**
+	 * 尝试给所有标有@MyFirstAnnotaion的字段添加扩展字段desp，并且根据字典表转化值为对应的描述
+	 *用Javaassist修改class文件
+	 **/
 	@GET
 	@Path(value = "/list")
 	@ApiOperation(value = "测试获取数据库信息")
