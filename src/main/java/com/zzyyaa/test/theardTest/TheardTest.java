@@ -1,5 +1,7 @@
 package com.zzyyaa.test.theardTest;
 
+import java.io.IOException;
+import java.net.InetAddress;
 import java.util.concurrent.Callable;
 
 public class TheardTest implements Callable<String>{
@@ -14,4 +16,8 @@ public class TheardTest implements Callable<String>{
 		return "success";
 	}
 	
+	//通过地址查找主机ip
+	public static void main(String[] args) throws IOException {
+		System.out.println(InetAddress.getLocalHost());	
+	}
 }
