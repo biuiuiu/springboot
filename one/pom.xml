@@ -52,6 +52,12 @@
 			<groupId>com.paypal.springboot</groupId>
 			<artifactId>resteasy-spring-boot-starter</artifactId>
 			<version>2.3.0-RELEASE</version>
+			<exclusions>
+                <exclusion>
+                    <groupId>org.jboss.resteasy</groupId>
+		            <artifactId>resteasy-jackson2-provider</artifactId>
+                </exclusion>
+            </exclusions>
 		</dependency><!-- 引用resteasy风格 -->
 		
 		<dependency>
@@ -76,7 +82,7 @@
 		<dependency>  
         	<groupId>com.zaxxer</groupId>  
 	        <artifactId>HikariCP</artifactId>  
-	    </dependency> 
+	    </dependency><!--  HikariCP数据库连接池工具 -->
 		
 	</dependencies>
 

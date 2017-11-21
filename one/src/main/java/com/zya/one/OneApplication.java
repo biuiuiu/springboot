@@ -4,8 +4,6 @@ import java.util.List;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.web.HttpMessageConverters;
-import org.springframework.context.annotation.Bean;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
@@ -14,28 +12,25 @@ import com.alibaba.fastjson.support.config.FastJsonConfig;
 import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
 
 @SpringBootApplication
-public class OneApplication{
+public class OneApplication extends WebMvcConfigurerAdapter {
 
 	public static void main(String[] args) {
 		SpringApplication.run(OneApplication.class, args);
 	}
 	
-	@Bean
-    public HttpMessageConverters fastjsonHttpMessageConverter(){
-        //定义一个转换消息的对象
-        FastJsonHttpMessageConverter fastConverter = new FastJsonHttpMessageConverter();
+	@Override
+	public void configureMessageConverters(
+			List<HttpMessageConverter<?>> converters) {
+		//定义一个converter转换消息的对象
+		FastJsonHttpMessageConverter fastconverter = new FastJsonHttpMessageConverter();
+		//添加fastjson的配置信息，比如：是否需要格式化返回的json数据
+		FastJsonConfig fastJsonConfig = new FastJsonConfig();
+		fastJsonConfig.setSerializerFeatures(SerializerFeature.PrettyFormat);
+		//在converter中添加配置信息
+		fastconverter.setFastJsonConfig(fastJsonConfig);
+		//将converter添加到converters中
+		converters.add(fastconverter);
+		super.configureMessageConverters(converters);
+	}
 
-        //添加fastjson的配置信息 比如 ：是否要格式化返回的json数据
-        FastJsonConfig fastJsonConfig = new FastJsonConfig();
-
-        fastJsonConfig.setSerializerFeatures(SerializerFeature.PrettyFormat);
-
-        //在转换器中添加配置信息
-        fastConverter.setFastJsonConfig(fastJsonConfig);
-
-        HttpMessageConverter<?> converter = fastConverter;
-
-        return new HttpMessageConverters(converter);
-
-    }
 }
