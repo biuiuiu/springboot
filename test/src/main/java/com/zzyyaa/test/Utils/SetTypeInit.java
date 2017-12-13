@@ -15,6 +15,9 @@ public class SetTypeInit extends WebApplicationObjectSupport{
 	
 	private Map<String, Object> map = new HashMap<>();
 	
+	/**
+	 * 获取实现了某类的所有类的bean
+	 * */
 	@Override
 	protected void initApplicationContext(ApplicationContext context) {
 		super.initApplicationContext(context);

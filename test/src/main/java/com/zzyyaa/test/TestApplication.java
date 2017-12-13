@@ -18,8 +18,11 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.alibaba.fastjson.support.config.FastJsonConfig;
 import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
+import com.zzyyaa.test.Utils.BeanUtils;
 import com.zzyyaa.test.Utils.dispatcherServlet;
 import com.zzyyaa.test.customAnnotaion.MyFirstAnnotationAspect;
+import com.zzyyaa.test.entity.User;
+import com.zzyyaa.test.service.UserService;
 
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
@@ -31,6 +34,12 @@ public class TestApplication extends WebMvcConfigurerAdapter{
 	
 	public static void main(String[] args) {
 		SpringApplication.run(TestApplication.class, args);
+		UserService service = BeanUtils.getBean(UserService.class);//启动的时候即运行此操作，插入一条数据
+		System.out.println("when it start");
+		User sUser = new User();
+		sUser.setUserName("main");
+		service.addT(sUser);
+		System.out.println(service.getAllUser());
 }
 
 	/**
