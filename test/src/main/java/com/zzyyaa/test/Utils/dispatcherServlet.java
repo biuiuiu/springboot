@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Component;
 
 import com.zzyyaa.test.entity.ServletEntity;
-@Component
 public class dispatcherServlet extends HttpServlet{
 
 	/**

@@ -22,6 +22,16 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xs
 	</properties>
   
   <dependencies><!-- 引用 -->
+  <!-- consul的服务发现依赖 -->
+		<dependency>
+		  <groupId>org.springframework.cloud</groupId>
+		  <artifactId>spring-cloud-starter-consul-discovery</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+  
   	<dependency>
   		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter</artifactId><!-- 引用文件的唯一标识 -->
@@ -130,7 +140,17 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xs
 		</dependency>
 	
   </dependencies>
-  
+  	<dependencyManagement>
+	    <dependencies>
+	        <dependency>
+	           <groupId>org.springframework.cloud</groupId>
+	           <artifactId>spring-cloud-dependencies</artifactId>
+	           <version>Dalston.SR1</version>
+	           <type>pom</type>
+	           <scope>import</scope>
+	        </dependency>
+	    </dependencies>
+	</dependencyManagement>
 	<build><!-- 编译设置 -->
 		<plugins><!-- 引用编译需要的插件 -->
 			<plugin>
