@@ -44,6 +44,9 @@ public class A {
 		if (o == null) {
 			return null;
 		}
+		if (o == this) {
+			return true;
+		}
 		try {
 			Method method = o.getClass().getMethod("getPrimaryKey");
 			Object oo = method.invoke(o);
@@ -61,12 +64,26 @@ public class A {
 		A b = new A();
 		b.setPrimaryKey("A");
 		b.setPrimaryValue("90");
+		A c = new A ();
+		c.setPrimaryKey("A");
+		c.setPrimaryValue("100");
 		System.out.println(a.equals(b));
-		System.out.println(a.hashCode());
-		System.out.println(b.hashCode());
-		Set<A> set = new HashSet<>();
-		set.add(a);
-		set.add(b);
-		System.out.println(set);
+		System.out.println(a.equals(c));
+		System.out.println(b.equals(c));
+	}
+	
+	
+	/**
+	 * 单例模式
+	 * 构造方法私有化
+	 * 通过暴露的一个实例化方法获取对象实例
+	 * */
+	private A(){
+	}
+	
+	private static A a = new A();
+	
+	public static A getInstance() {
+		return a;
 	}
 }

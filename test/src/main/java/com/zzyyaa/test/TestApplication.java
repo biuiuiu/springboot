@@ -28,7 +28,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableWebMvc
 @EnableSwagger2
 @EnableScheduling//注解开启spring定时任务
-@EnableDiscoveryClient
+//@EnableDiscoveryClient
 public class TestApplication extends WebMvcConfigurerAdapter{
 	
 	public static void main(String[] args) {

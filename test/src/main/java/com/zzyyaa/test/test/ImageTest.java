@@ -17,5 +17,6 @@ public class ImageTest {
 	public static void main(String[] args) throws IOException {
 		File file = new File("D:\\2.jpg");
 		copyImage(file, "D:\\testfile");
+		
 	}
 }
