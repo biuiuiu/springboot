@@ -6,10 +6,21 @@ import org.springframework.stereotype.Component;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 
+/**有两种方式创建Jedispool的连接实例。
+ * 一是在当前类添加静态属性，在static静态块里获取redis的基础配置，完成jedispool的初始化。
+ * 缺点：spring静态属性不支持autowireed注入，且static静态块的运行顺序在注入前面，导致属性不好从配置文件中获取。
+ * 
+ * 二是创建配置类@configuation。通过@bean创建由spring管理的jedispool对象，属性的初始化在@bean中完成。
+ * 使用的时候，直接通过autowireed注入。本例采用后者
+ * 
+ * */
+
 @Component
 public class RedisUtils {
 	
-	
+	/**
+	 * 在类redisconfig中添加属性
+	 * */
 	@Autowired
 	private JedisPool jedisPool;
 	
@@ -104,6 +115,8 @@ public class RedisUtils {
 	 * @return
 	 */
 	// 2017-12-22 调用报错，不能从连接池中获取资源。未解决
+	// 2017-12-23 解决调用问题，在新建Jedispool实例时需要输入密码，否则验证不通过
+	// 采用注入方式初始化jedispool
 	public synchronized Jedis getInstance() {
 		try {
 //			if (jedisPool == null) {
@@ -111,6 +124,7 @@ public class RedisUtils {
 //			}
 			if (jedisPool != null) {
 				Jedis jedis = jedisPool.getResource();
+				jedis.select(10);//指定某一个数据库，默认为db0
 				return jedis;
 			} else {
 				return null;
