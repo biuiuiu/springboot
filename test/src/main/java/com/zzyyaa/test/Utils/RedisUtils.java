@@ -119,9 +119,6 @@ public class RedisUtils {
 	// 采用注入方式初始化jedispool
 	public synchronized Jedis getInstance() {
 		try {
-//			if (jedisPool == null) {
-//				initMethord();
-//			}
 			if (jedisPool != null) {
 				Jedis jedis = jedisPool.getResource();
 				jedis.select(10);//指定某一个数据库，默认为db0
