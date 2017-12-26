@@ -6,7 +6,7 @@
 	<groupId>com.zya</groupId>
 	<artifactId>zone</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>jar</packaging>
+	<packaging>war</packaging>
 
 	<name>zone</name>
 	<description>zone project for Spring Boot,just belong we two</description>
@@ -29,6 +29,23 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
+		<!-- 这里指定打包的时候不再需要tomcat相关的包 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-tomcat</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        
+        <!-- 静态文件的依赖 -->
+       <!--  <dependency>
+            <groupId>org.apache.tomcat.embed</groupId>
+            <artifactId>tomcat-embed-jasper</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>jstl</artifactId>
+        </dependency> -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-actuator</artifactId>
@@ -39,24 +56,8 @@
 			<scope>test</scope>
 		</dependency>
 		
-		<!-- consul的服务发现依赖 -->
-		<dependency>
-		  <groupId>org.springframework.cloud</groupId>
-		  <artifactId>spring-cloud-starter-consul-discovery</artifactId>
-		</dependency>
 	</dependencies>
 
-	<dependencyManagement>
-	    <dependencies>
-	        <dependency>
-	           <groupId>org.springframework.cloud</groupId>
-	           <artifactId>spring-cloud-dependencies</artifactId>
-	           <version>Dalston.SR1</version>
-	           <type>pom</type>
-	           <scope>import</scope>
-	        </dependency>
-	    </dependencies>
-	</dependencyManagement>
 
 	<build>
 		<plugins>
@@ -64,6 +65,15 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+			<!-- maven打包的时候告诉maven不需要web.xml,否刚会报找不到web.xml错误 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>2.4</version>
+                <configuration>
+                    <failOnMissingWebXml>false</failOnMissingWebXml>
+                </configuration>
+            </plugin>
 		</plugins>
 	</build>
 	<!-- 配置远程仓库 -->
