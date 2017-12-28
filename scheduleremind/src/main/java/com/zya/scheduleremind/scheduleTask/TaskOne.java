@@ -19,16 +19,16 @@ public class TaskOne implements ApplicationRunner{
 		runschedule(null);
 	}
 	
-	@Scheduled(cron = "0 0 9,14,20 * * ? ")//每天9.00和14.00运行
+	@Scheduled(cron = "0 0 9,14,19 * * ? ")//每天9.00和14.00和19.00运行
 	public void taskTwo() {
 		runschedule(null);
 	}
 	
-	@Scheduled(cron = "0 25 11,17 * * ? ")//每天11.25运行
+	@Scheduled(cron = "0 25 11,17 * * ? ")//每天11.25和17.25运行
 	public void taskThree() {
 		runschedule(null);
 	}
-	@Scheduled(cron = "0 55 20 * * ? ")//每天9.00和14.00运行
+	@Scheduled(cron = "0 55 20 * * ? ")//每天20.55运行
 	public void taskFour() {
 		runschedule(null);
 	}

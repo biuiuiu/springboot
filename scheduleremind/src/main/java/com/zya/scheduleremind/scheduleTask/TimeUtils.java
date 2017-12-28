@@ -45,7 +45,7 @@ public class TimeUtils {
 		}else if (hour1>18&&hour1<=24) {
 			temp = "ws";
 		}else {
-			temp = "error";
+			temp = "error";//判断上午、下午、和晚上
 		}
 		Date outJobTime = timeMap.get(temp);
 		long value = outJobTime.getTime() - date.getTime();
