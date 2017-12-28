@@ -2,6 +2,7 @@ package com.zya.one;
 
 import java.util.List;
 
+import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.http.converter.HttpMessageConverter;
