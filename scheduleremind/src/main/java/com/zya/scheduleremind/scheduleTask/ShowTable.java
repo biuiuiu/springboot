@@ -33,6 +33,7 @@ public class ShowTable {
 		panel.add(label);
 		frame.add(panel);
 		frame.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
+		frame.setAlwaysOnTop(true);//总在最前
 		frame.setVisible(true);
 		
 		try {

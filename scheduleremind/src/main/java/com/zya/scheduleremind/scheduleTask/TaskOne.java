@@ -32,10 +32,10 @@ public class TaskOne implements ApplicationRunner{
 	public void taskFour() {
 		runschedule(null);
 	}
-//	@Scheduled(cron = "0/30 * * * * ? ")//每天17.25运行
-//	public void taskTest() {
-//		runschedule(null);
-//	}
+	@Scheduled(cron = "0/30 * * * * ? ")//测试用，每30s执行一次
+	public void taskTest() {
+		runschedule(null);
+	}
 	private void runschedule(String ss){
 		System.setProperty("java.awt.headless", "false"); 
 		if (ss!=null) {
